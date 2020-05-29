@@ -5,14 +5,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/white">
 
         <ImageView
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:background="@color/colorPrimaryDark" />
+            android:scaleType="fitXY" />
         <!--    android:src="@drawable/mount"-->
 
 
@@ -27,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_width="240dp"
             android:layout_height="280dp"
-            android:src="@drawable/login_logo"
+            android:src="@drawable/logo"
             android:layout_marginTop="37dp"/>
 
         <TextView

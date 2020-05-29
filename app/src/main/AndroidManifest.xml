@@ -20,6 +20,7 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".auth.RegistrationActivity"></activity>
+        <activity android:name=".viewpagerslider.VPSlider" />
         <activity android:name=".MainActivity" />
         <activity android:name=".auth.LoginActivity" />
         <activity android:name=".auth.AuthMainActivity" />

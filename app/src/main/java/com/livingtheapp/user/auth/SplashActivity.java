@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.livingtheapp.user.MainActivity;
 import com.livingtheapp.user.R;
+import com.livingtheapp.user.viewpagerslider.VPSlider;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,7 +36,7 @@ public class SplashActivity extends AppCompatActivity
 
         new Handler().postDelayed(() -> {
             // This method will be executed once the timer is over
-            Intent i = new Intent(SplashActivity.this, AuthMainActivity.class);
+            Intent i = new Intent(SplashActivity.this, VPSlider.class);
             startActivity(i);
             finish();
         }, 5000);
