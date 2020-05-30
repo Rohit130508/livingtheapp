@@ -8,4 +8,5 @@ public class AppUrl {
 
     public static String loginService= BASE_URL+ "loginService";
     public static String forgetPasswordService= BASE_URL+ "forgetPasswordService";
+    public static String getSliderImageUrls= BASE_URL+ "getSliderImageUrls";
 }

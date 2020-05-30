@@ -18,9 +18,11 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import me.relex.circleindicator.CircleIndicator;
 
+import com.livingtheapp.user.MainActivity;
 import com.livingtheapp.user.R;
 import com.livingtheapp.user.auth.LoginActivity;
 import com.livingtheapp.user.auth.RegistrationActivity;
+import com.livingtheapp.user.utils.CustomPerference;
 import com.livingtheapp.user.viewpagerslider.fragments.FifthFrag;
 import com.livingtheapp.user.viewpagerslider.fragments.ForthFrag;
 import com.livingtheapp.user.viewpagerslider.fragments.ScreenSlidePageFragment;
@@ -34,7 +36,7 @@ public class VPSlider extends AppCompatActivity {
     private static final int NUM_PAGES = 7;
 
     private ViewPager mPager;
-
+    private String userId = null;
     private int images_vp[] = {R.drawable.vp1, R.drawable.vp2, R.drawable.vp3,
             R.drawable.vp4, R.drawable.vp5, R.drawable.vp6,
             R.drawable.vp7};
@@ -49,19 +51,30 @@ public class VPSlider extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppThemeVP);
-        setContentView(R.layout.activity_v_p_slider);
 
-        mPager = findViewById(R.id.photos_viewpager);
-        mPager.setPageTransformer(true, new DepthPageTransformer());
-        myCustomPagerAdapter = new SliderPagerAdapter(this, images_vp);
+        userId = CustomPerference.getString(this, CustomPerference.USER_ID);
+        if (userId != null)
+        {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+        else {
+            setContentView(R.layout.activity_v_p_slider);
+
+            mPager = findViewById(R.id.photos_viewpager);
+            mPager.setPageTransformer(true, new DepthPageTransformer());
+            myCustomPagerAdapter = new SliderPagerAdapter(this, images_vp);
 //        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(myCustomPagerAdapter);
+            mPager.setAdapter(myCustomPagerAdapter);
 
-        CircleIndicator indicator =  findViewById(R.id.indicator);
-        indicator.setViewPager(mPager);
+            CircleIndicator indicator =  findViewById(R.id.indicator);
+            indicator.setViewPager(mPager);
 
-        findViewById(R.id.btnRegister).setOnClickListener(v -> getRegisterPage());
-        findViewById(R.id.btnSignIn).setOnClickListener(v -> getLoginPage());
+            findViewById(R.id.btnRegister).setOnClickListener(v -> getRegisterPage());
+            findViewById(R.id.btnSignIn).setOnClickListener(v -> getLoginPage());
+        }
+
+
 
 
     }

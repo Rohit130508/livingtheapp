@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.livingtheapp.user.auth.ModalCountries;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager vp_slider;
     TextView txtCountry,txtImgMsg;
     private int images_vp[] = {R.drawable.a, R.drawable.b, R.drawable.c};
+    ArrayList vparray = new ArrayList<String>();
 
     private SliderPagerAdapter myCustomPagerAdapter;
 
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         imageModelArrayList = populateList();
 
         vp_slider = findViewById(R.id.vp_slider);
+
+
 
 
         myCustomPagerAdapter = new SliderPagerAdapter(this, images_vp);
@@ -281,37 +286,6 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-
-    void listCountries2()
-    {
-
-        if(Utils.isNetworkAvailable(this))
-            getExecuteMethods();
-
-
-
-
-        Dialog dialog_auth = new Dialog(MainActivity.this);
-        dialog_auth.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_auth.setContentView(R.layout.custom_view_countrieslist);
-        dialog_auth.show();
-        dialog_auth.setCanceledOnTouchOutside(false);
-        dialog_auth.setCancelable(false);
-
-        Window window = dialog_auth.getWindow();
-        assert window != null;
-        window.setBackgroundDrawableResource(android.R.color.transparent);
-        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-
-        rvList = dialog_auth.findViewById(R.id.rvList);
-        rvList.setLayoutManager(new LinearLayoutManager(MainActivity.this,RecyclerView.VERTICAL,false));
-
-
-
-
-    }
-
     class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.ViewHolder>
     {
         ArrayList<ModalCountries> arrayList;
@@ -351,6 +325,43 @@ public class MainActivity extends AppCompatActivity {
                 txtCountry = itemView.findViewById(R.id.txtCountry);
             }
         }
+    }
+
+
+    void getSliderImages()
+    {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("token",CustomPerference.getString(this,CustomPerference.USER_TOKEN));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, AppUrl.getSliderImageUrls,
+                object, response -> {
+
+            try {
+                if(response.getString("status").equalsIgnoreCase("1"))
+                {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    for (int i=0; i<jsonArray.length();i++)
+                    {
+                        JSONObject object1 = jsonArray.getJSONObject(i);
+                        vparray.add(object1.getString("imageUrl"));
+
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }, error -> {
+
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        request.setRetryPolicy(new DefaultRetryPolicy(20 * 2000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT ));
+        queue.add(request);
     }
 
 }
