@@ -1,7 +1,12 @@
 package com.livingtheapp.user.viewpagerslider;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -9,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import me.relex.circleindicator.CircleIndicator;
 
 import com.livingtheapp.user.R;
 import com.livingtheapp.user.viewpagerslider.fragments.FifthFrag;
@@ -25,10 +31,15 @@ public class VPSlider extends AppCompatActivity {
 
     private ViewPager mPager;
 
+    private int images_vp[] = {R.drawable.vp1, R.drawable.vp2, R.drawable.vp3,
+            R.drawable.vp4, R.drawable.vp5, R.drawable.vp6,
+            R.drawable.vp7};
+
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter pagerAdapter;
+    private SliderPagerAdapter myCustomPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +49,14 @@ public class VPSlider extends AppCompatActivity {
 
         mPager = findViewById(R.id.photos_viewpager);
         mPager.setPageTransformer(true, new DepthPageTransformer());
-        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(pagerAdapter);
+        myCustomPagerAdapter = new SliderPagerAdapter(this, images_vp);
+//        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(myCustomPagerAdapter);
+
+        CircleIndicator indicator =  findViewById(R.id.indicator);
+        indicator.setViewPager(mPager);
+
+
     }
     @Override
     public void onBackPressed() {
@@ -120,6 +137,52 @@ public class VPSlider extends AppCompatActivity {
                 // This page is way off-screen to the right.
                 view.setAlpha(0f);
             }
+        }
+    }
+
+
+    class SliderPagerAdapter extends PagerAdapter {
+        Context context;
+        int[] images;
+        LayoutInflater layoutInflater;
+
+
+        public SliderPagerAdapter(Context context, int[] images) {
+            this.context = context;
+            this.images = images;
+            layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return images.length;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, final int position) {
+            View itemView = layoutInflater.inflate(R.layout.vp_maincat_item, container, false);
+
+            ImageView iv_vp_slider = itemView.findViewById(R.id.iv_vp_slider);
+            iv_vp_slider.setImageResource(images[position]);
+
+            container.addView(itemView);
+
+            //listening to image click
+            iv_vp_slider.setOnClickListener(v -> {
+                //Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_LONG).show();
+            });
+
+            return itemView;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((LinearLayout) object);
         }
     }
 }
