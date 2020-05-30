@@ -297,8 +297,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                 if(response.getString("status").equalsIgnoreCase("1"))
                                     startActivity(new Intent(this,LoginActivity.class));
                                 else
-                                    Utils.CustomAlert(this,
-                                            "Some Problem",
+                                    Utils.CustomDialog(this,
+                                            "Look into the issue",
                                             response.getString("message"));
 
                             } catch (JSONException e) {

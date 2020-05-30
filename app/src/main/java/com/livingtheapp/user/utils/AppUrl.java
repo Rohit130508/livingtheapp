@@ -7,4 +7,5 @@ public class AppUrl {
     public static String registrationService= BASE_URL+"registrationService";
 
     public static String loginService= BASE_URL+ "loginService";
+    public static String forgetPasswordService= BASE_URL+ "forgetPasswordService";
 }
