@@ -49,6 +49,7 @@
 
             android:id="@+id/inputEmailId"
 
+            android:padding="7dp"
             android:layout_width="320dp"
             android:layout_height="60dp"
             android:ellipsize="start"
@@ -70,6 +71,7 @@
 
         <EditText
 
+            android:padding="7dp"
             android:id="@+id/inputPassword"
             android:layout_width="320dp"
             android:layout_height="60dp"

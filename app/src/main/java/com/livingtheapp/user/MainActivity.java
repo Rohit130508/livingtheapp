@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
     void initView()
     {
         txtImgMsg = findViewById(R.id.txtImgMsg);
-        txtImgMsg.setText("Welcome "+ CustomPerference.getString(this,CustomPerference.USER_NAME)+" " +
-                "Enjoy the best offers and deals here !");
+        txtImgMsg.setText("Marhaba "+ CustomPerference.getString(this,CustomPerference.USER_NAME)+"\n " +
+                "Buy your membership now and enjoy your offers");
         txtCountry = findViewById(R.id.txtCountry);
 //        txtCountry.setOnClickListener(v -> listCountries());
         findViewById(R.id.imgBeau).setOnClickListener(v -> Toast.makeText(getApplicationContext(),"Working on this",Toast.LENGTH_LONG).show());

@@ -74,10 +74,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="#80000000"
-            android:text="Welcome in Living the app, Please login with us >"
+            android:text=""
             android:padding="17dp"
             android:textColor="@color/white"
-            android:gravity="center"
+            android:gravity="start"
             android:textSize="15sp"/>
     </RelativeLayout>
 
