@@ -95,9 +95,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else
 
-                                    Utils.CustomAlert(LoginActivity.this,
-                                            "Some Problem",
+                                    Utils.CustomDialog(LoginActivity.this,
+                                            "Look into the issue",
                                             response.getString("message"));
+//                                    Utils.CustomAlert(LoginActivity.this,
+//                                            "Some Problem",
+//                                            response.getString("message"));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

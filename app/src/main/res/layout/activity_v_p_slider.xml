@@ -5,21 +5,65 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".viewpagerslider.VPSlider"
+    android:background="@color/colorPrimaryDark"
     >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/photos_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"/>
+        />
+
+
 
 
     <me.relex.circleindicator.CircleIndicator
-
+        android:layout_above="@+id/linBtn"
+        android:layout_marginBottom="9dp"
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:layout_alignBottom="@+id/vp_slider" />
+
+    <LinearLayout
+        android:id="@+id/linBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:fontFamily="@font/montserrat"
+            android:text="Register"
+            android:textColor="@color/white"
+            android:background="#ED006f79"/>
+
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/montserrat"
+            android:text="SignIn"
+            android:textColor="@color/white"
+            android:background="#EDFBCA07"/>
+
+    </LinearLayout>
 
 <!--        <com.google.android.material.tabs.TabLayout-->
 <!--            android:layout_width="match_parent"-->

@@ -45,12 +45,13 @@
     <EditText
 
         android:id="@+id/inputFName"
-
+        android:textColor="@color/textcolor"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:ellipsize="start"
         android:gravity="center"
 
+        android:fontFamily="@font/montserrat"
         android:inputType="text"
         android:background="@drawable/grad_edittext"/>
 
@@ -65,12 +66,14 @@
         android:padding="13sp"/>
 
     <EditText
+
         android:id="@+id/inputLName"
         android:layout_width="320dp"
         android:layout_height="60dp"
         android:ellipsize="start"
         android:gravity="center"
-
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/textcolor"
         android:inputType="text"
         android:background="@drawable/grad_edittext"/>
 
@@ -108,7 +111,8 @@
             android:layout_height="60dp"
             android:ellipsize="start"
             android:gravity="center"
-
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/textcolor"
             android:inputType="number"
             android:background="@drawable/grad_edittext"/>
 
@@ -131,7 +135,8 @@
         android:layout_height="60dp"
         android:ellipsize="start"
         android:gravity="center"
-
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/textcolor"
         android:inputType="text"
         android:background="@drawable/grad_edittext"/>
 
@@ -146,6 +151,7 @@
         android:padding="13sp"/>
 
         <TextView
+            android:textColor="@color/textcolor"
             android:textSize="19sp"
             android:fontFamily="@font/montserrat"
             android:id="@+id/inputDateOfBirth"
@@ -171,7 +177,8 @@
         android:layout_height="60dp"
         android:ellipsize="start"
         android:gravity="center"
-
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/textcolor"
         android:inputType="text"
         android:background="@drawable/grad_edittext"/>
 
@@ -192,7 +199,8 @@
         android:layout_height="60dp"
         android:ellipsize="start"
         android:gravity="center"
-
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/textcolor"
         android:inputType="text"
         android:background="@drawable/grad_edittext"/>
 

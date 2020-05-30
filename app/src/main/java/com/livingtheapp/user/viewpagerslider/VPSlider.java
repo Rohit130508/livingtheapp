@@ -1,12 +1,14 @@
 package com.livingtheapp.user.viewpagerslider;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,8 @@ import androidx.viewpager.widget.ViewPager;
 import me.relex.circleindicator.CircleIndicator;
 
 import com.livingtheapp.user.R;
+import com.livingtheapp.user.auth.LoginActivity;
+import com.livingtheapp.user.auth.RegistrationActivity;
 import com.livingtheapp.user.viewpagerslider.fragments.FifthFrag;
 import com.livingtheapp.user.viewpagerslider.fragments.ForthFrag;
 import com.livingtheapp.user.viewpagerslider.fragments.ScreenSlidePageFragment;
@@ -55,6 +59,9 @@ public class VPSlider extends AppCompatActivity {
 
         CircleIndicator indicator =  findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
+
+        findViewById(R.id.btnRegister).setOnClickListener(v -> getRegisterPage());
+        findViewById(R.id.btnSignIn).setOnClickListener(v -> getLoginPage());
 
 
     }
@@ -182,7 +189,17 @@ public class VPSlider extends AppCompatActivity {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((LinearLayout) object);
+            container.removeView((RelativeLayout) object);
         }
     }
+
+    void getRegisterPage()
+    {
+        startActivity(new Intent(this, RegistrationActivity.class));
+    }
+    void getLoginPage()
+    {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
 }

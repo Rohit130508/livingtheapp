@@ -24,6 +24,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.livingtheapp.user.R;
@@ -217,47 +218,43 @@ public class Utils {
     {
         AlertDialog.Builder builder;
         builder = new AlertDialog.Builder(context);
-        builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(Title);
         builder.setMessage(Message)
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
 
                 })
-                .setNegativeButton(android.R.string.no, (dialog, which) -> {
-                    dialog.dismiss();
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
+//                .setNegativeButton(android.R.string.no, (dialog, which) -> {
+//                    dialog.dismiss();
+//                })
+                .setIcon(R.drawable.logo)
                 .show();
         return true;
     }
 
 
-//    public static void CustomDialog(Context context, String Title,String Message, int layout, Intent intent)
-//    {
-//        Dialog dialog_auth = new Dialog(context);
-//        dialog_auth.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog_auth.setContentView(layout);
-//        dialog_auth.show();
-//        dialog_auth.setCanceledOnTouchOutside(false);
-//        dialog_auth.setCancelable(false);
-//
-//        Window window = dialog_auth.getWindow();
-//        assert window != null;
-//        window.setBackgroundDrawableResource(android.R.color.transparent);
-//        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//
-//
-//        if(layout == R.layout.custom_dialog) {
-//            AppCompatTextView txt_title = dialog_auth.findViewById(R.id.txt_title);txt_title.setText(Title);
-//            AppCompatTextView txt_message = dialog_auth.findViewById(R.id.txt_message);txt_message.setText(Message);
-//            AppCompatButton restart = dialog_auth.findViewById(R.id.submit);
-//            restart.setOnClickListener(v -> {
-//
-//                context.startActivity(intent);
-//
-//            });
-//        }
-//    }
+    public static void CustomDialog(Context context,
+                                    String Title,String Message)
+    {
+        Dialog dialog_auth = new Dialog(context);
+        dialog_auth.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_auth.setContentView(R.layout.alert_dialog);
+        dialog_auth.show();
+        dialog_auth.setCanceledOnTouchOutside(false);
+        dialog_auth.setCancelable(false);
+
+        Window window = dialog_auth.getWindow();
+        assert window != null;
+        window.setBackgroundDrawableResource(android.R.color.transparent);
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        TextView txtOk = dialog_auth.findViewById(R.id.txtOk);
+        TextView txtDescription = dialog_auth.findViewById(R.id.txtDescription);
+        TextView txtTitle = dialog_auth.findViewById(R.id.txtTitle);
+
+        txtOk.setOnClickListener(v -> dialog_auth.dismiss());
+        txtDescription.setText(Message);
+        txtTitle.setText(Title);
+    }
 
 
 //    public static void popUpDialog(Context context)
