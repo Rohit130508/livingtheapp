@@ -13,6 +13,7 @@ import okhttp3.internal.Util;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -412,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_cat, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_cat , parent, false);
             return new ViewHolder(view);
         }
 
@@ -421,7 +422,12 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 JSONObject object = (JSONObject) jsonArray.get(position);
+                String id = object.getString("id");
                 Utils.Picasso(object.getString("imagefile"),holder.imgBeau);
+                holder.imgBeau.setOnClickListener(v -> {
+                    startActivity(new Intent(MainActivity.this,SubCategory.class)
+                    .putExtra("id",id));
+                });
             }catch (Exception e){}
         }
 

@@ -10,4 +10,5 @@ public class AppUrl {
     public static String forgetPasswordService= BASE_URL+ "forgetPasswordService";
     public static String getSliderImageUrls= BASE_URL+ "getSliderImageUrls";
     public static String getMainCategories= BASE_URL+ "getMainCategories";
+    public static String getMainSubCategories= BASE_URL+ "getMainSubCategories";
 }
