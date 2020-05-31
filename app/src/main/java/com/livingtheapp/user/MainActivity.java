@@ -3,11 +3,13 @@ package com.livingtheapp.user;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import me.relex.circleindicator.CircleIndicator;
+import okhttp3.internal.Util;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private AlertDialog alertDialog;
     private String userId = null;
+    private RecyclerView rvMainCat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
         vp_slider = findViewById(R.id.vp_slider);
 
-
-
-
         myCustomPagerAdapter = new SliderPagerAdapter(this, images_vp);
         vp_slider.setAdapter(myCustomPagerAdapter);
 
@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         final Runnable Update = () -> {
             if (currentPage == NUM_PAGES) {
                 currentPage = 0;
-
             }
 
             vp_slider.setCurrentItem(currentPage++, true);
@@ -108,11 +107,16 @@ public class MainActivity extends AppCompatActivity {
 
          arrayList = new ArrayList<>();
         initView();
+        if(Utils.isNetworkAvailable(this))
+        getMainCategories();
 
     }
 
     void initView()
     {
+        rvMainCat = findViewById(R.id.rvMainCat);
+        rvMainCat.setLayoutManager(new GridLayoutManager(this,3));
+
         txtImgMsg = findViewById(R.id.txtImgMsg);
         txtImgMsg.setText("Marhaba "+ CustomPerference.getString(this,CustomPerference.USER_NAME)+"\n " +
                 "Buy your membership now and enjoy your offers");
@@ -261,6 +265,39 @@ public class MainActivity extends AppCompatActivity {
         queue.add(request);
     }
 
+    void getMainCategories()
+    {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("token",CustomPerference.getString(this,CustomPerference.USER_TOKEN));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println("res"+object);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, AppUrl.getMainCategories, object,
+                response -> {
+                    System.out.println("res"+response);
+                    try {
+                        if(response.getString("status").equalsIgnoreCase("1"))
+                        {
+                            JSONArray jsonArray = response.getJSONArray("data");
+                            MainCatAdapter adapter = new MainCatAdapter(jsonArray);
+                            rvMainCat.setAdapter(adapter);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }, error -> {
+
+                });
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        request.setRetryPolicy(new DefaultRetryPolicy(10*2000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(request);
+    }
+
 
     void listCountries()
     {
@@ -364,4 +401,41 @@ public class MainActivity extends AppCompatActivity {
         queue.add(request);
     }
 
+    class MainCatAdapter extends RecyclerView.Adapter<MainCatAdapter.ViewHolder>
+    {
+        JSONArray jsonArray;
+
+        public MainCatAdapter(JSONArray jsonArray) {
+            this.jsonArray = jsonArray;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_cat, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+            try {
+                JSONObject object = (JSONObject) jsonArray.get(position);
+                Utils.Picasso(object.getString("imagefile"),holder.imgBeau);
+            }catch (Exception e){}
+        }
+
+        @Override
+        public int getItemCount() {
+            return jsonArray.length();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            ImageView imgBeau;
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                imgBeau = itemView.findViewById(R.id.imgBeau);
+            }
+        }
+    }
 }
