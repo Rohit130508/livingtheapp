@@ -423,10 +423,12 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSONObject object = (JSONObject) jsonArray.get(position);
                 String id = object.getString("id");
+                String name = object.getString("name");
                 Utils.Picasso(object.getString("imagefile"),holder.imgBeau);
                 holder.imgBeau.setOnClickListener(v -> {
                     startActivity(new Intent(MainActivity.this,SubCategory.class)
-                    .putExtra("id",id));
+                    .putExtra("id",id)
+                    .putExtra("name",name));
                 });
             }catch (Exception e){}
         }

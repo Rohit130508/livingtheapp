@@ -8,6 +8,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
     <LinearLayout
         android:id="@+id/linTop"
         android:background="@color/colorPrimaryDark"
@@ -56,190 +58,169 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlImage"
+
+    <LinearLayout
         android:layout_below="@+id/linTop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/finedining"/>
-
-        <TextView
-            android:id="@+id/txtImgMsg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="#80000000"
-            android:text=""
-            android:padding="9dp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="15sp"/>
-    </RelativeLayout>
-
-    <LinearLayout
-
-        android:id="@+id/linCat"
-        android:layout_below="@+id/rlImage"
-
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="3"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <RelativeLayout
+            android:id="@+id/rlImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rvMainCat"/>
+            android:layout_height="0dp"
+            android:layout_weight=".80">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/finedining"/>
+
+            <TextView
+                android:id="@+id/txtImgMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="#80000000"
+                android:text=""
+                android:padding="9dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="15sp"/>
+        </RelativeLayout>
 
         <LinearLayout
-            android:visibility="gone"
-            android:layout_marginBottom="3dp"
-            android:layout_marginTop="13dp"
+            android:orientation="vertical"
+            android:id="@+id/linCat"
+            android:layout_below="@+id/rlImage"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_height="0dp"
+            android:layout_weight="1.20">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvMainCat"/>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="13dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
 
 
 
-            <ImageView
-                android:id="@+id/imgBeau"
-                android:padding="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:src="@drawable/avdddv"/>
+                <ImageView
+                    android:id="@+id/imgBeau"
+                    android:padding="3dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="100dp"
+                    android:src="@drawable/avdddv"/>
 
-            <ImageView
-                android:id="@+id/imgshop"
-                android:padding="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:src="@drawable/fdd"/>
-            <ImageView
-                android:id="@+id/imgcycle"
-                android:padding="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:src="@drawable/asad"/>
+                <ImageView
+                    android:id="@+id/imgshop"
+                    android:padding="3dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="100dp"
+                    android:src="@drawable/fdd"/>
+                <ImageView
+                    android:id="@+id/imgcycle"
+                    android:padding="3dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="100dp"
+                    android:src="@drawable/asad"/>
 
 
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginBottom="13dp"
+                android:layout_marginTop="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+
+
+                <ImageView
+                    android:id="@+id/imgDrin"
+                    android:padding="3dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ass"/>
+
+                <ImageView
+                    android:id="@+id/imgRest"
+                    android:padding="3dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="100dp"
+                    android:src="@drawable/resa"/>
+
+                <ImageView
+                    android:id="@+id/imgBag"
+                    android:padding="3dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="100dp"
+                    android:src="@drawable/abcd"/>
+
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_marginBottom="13dp"
-            android:layout_marginTop="3dp"
+        <RelativeLayout
+            android:id="@+id/rlSlider"
+            android:layout_below="@+id/linOffer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="7dp">
 
 
             <ImageView
-                android:id="@+id/imgDrin"
-                android:padding="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:src="@drawable/ass"/>
+                android:id="@+id/linOffer"
+                android:src="@drawable/offer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                />
 
-            <ImageView
-                android:id="@+id/imgRest"
-                android:padding="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:src="@drawable/resa"/>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
 
-            <ImageView
-                android:id="@+id/imgBag"
-                android:padding="3dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:src="@drawable/abcd"/>
+            <me.relex.circleindicator.CircleIndicator
 
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_alignBottom="@+id/vp_slider" />
 
+        </RelativeLayout>
 
-        </LinearLayout>
 
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/linOffer"
-        android:layout_below="@+id/linCat"
-        android:background="@drawable/offer"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        >
 
-
-<!--
-        <TextView
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
-            android:text="Extra"
-            android:fontFamily="@font/montserrat"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <ImageView
-            android:layout_marginStart="17dp"
-            android:layout_marginEnd="17dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_sale"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
-            android:text="Offer"
-            android:fontFamily="@font/montserrat"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
-
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlSlider"
-        android:layout_below="@+id/linOffer"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="3dp">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp_slider"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-        <me.relex.circleindicator.CircleIndicator
-
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:layout_alignBottom="@+id/vp_slider" />
-
-    </RelativeLayout>
 
 
     <LinearLayout

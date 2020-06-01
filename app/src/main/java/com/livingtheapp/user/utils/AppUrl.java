@@ -11,4 +11,5 @@ public class AppUrl {
     public static String getSliderImageUrls= BASE_URL+ "getSliderImageUrls";
     public static String getMainCategories= BASE_URL+ "getMainCategories";
     public static String getMainSubCategories= BASE_URL+ "getMainSubCategories";
+    public static String getSubCategories= BASE_URL+ "getSubCategories";
 }
