@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "316137110478",
+    "firebase_url": "https://moybazar-56ea6.firebaseio.com",
+    "project_id": "moybazar-56ea6",
+    "storage_bucket": "moybazar-56ea6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316137110478:android:ee4b958f8a023fbbeac99f",
+        "android_client_info": {
+          "package_name": "com.livingtheapp.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316137110478-osk6lcsoundfk60kej5odffevoe7fgnf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.livingtheapp.user",
+            "certificate_hash": "246c0b05eb24e5262891ce13660e2a2c11273243"
+          }
+        },
+        {
+          "client_id": "316137110478-0sr1i7bj2fhknpp9j1dp979l4ouvb6f9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnTPeS475Hs0eg2XADolXZuj83apaJs_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316137110478-0sr1i7bj2fhknpp9j1dp979l4ouvb6f9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,11 +2,23 @@ package com.livingtheapp.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,37 +34,52 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.livingtheapp.user.utils.AppUrl;
 import com.livingtheapp.user.utils.CustomPerference;
 import com.livingtheapp.user.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class SubCategory extends AppCompatActivity {
 
     RecyclerView rvCatTypes,rvFilterCat;
-    TextView txtTitle;
-    ImageView imgBack;
+    TextView txtTitle,txtNoRec;
+    ImageView imgBack,imgBackblur;
 
     FusedLocationProviderClient mFusedLocationClient;
     private double latitude;
     private double longitude;
+    int PERMISSION_ID = 44;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_category);
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getLastLocation();
+
+
         initView();
-        if(Utils.isNetworkAvailable(this))
-            getExecuteHorizontal();
+
     }
 
     void initView()
     {
 
+        txtNoRec = findViewById(R.id.txtNoRec);
+        imgBackblur = findViewById(R.id.imgBackblur);
         imgBack = findViewById(R.id.imgBack);
         imgBack.setOnClickListener(v -> finish());
 
@@ -63,6 +90,12 @@ public class SubCategory extends AppCompatActivity {
         rvCatTypes = findViewById(R.id.rvCatTypes);
         rvFilterCat.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         rvCatTypes.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+
+        Picasso.get()
+                .load(R.drawable.nightlifesubcat)
+                .transform(new BlurTransformation(SubCategory.this, 25, 1))
+                .into(imgBackblur);
+
     }
     void getExecuteHorizontal()
     {
@@ -118,8 +151,12 @@ public class SubCategory extends AppCompatActivity {
 
             try {
                 JSONObject object = (JSONObject) array.get(position);
+                JSONObject object2 = (JSONObject) array.get(0);
+                String defId = object.getString("id");
                 holder.txtSubCatName.setText(object.getString("name"));
                 String id = object.getString("id");
+
+                getFilterSubCat(object2.getString("id"));
                 holder.txtSubCatName.setOnClickListener(v -> getFilterSubCat(id));
 
             } catch (JSONException e) {
@@ -159,8 +196,8 @@ public class SubCategory extends AppCompatActivity {
             object.put("filterValue", "");
             object.put("filtersWith", arrayFilterWith);
             object.put("id", id);
-            object.put("lat1", 26.846251);
-            object.put("lon1", 80.94902);
+            object.put("lat1", latitude);
+            object.put("lon1", longitude);
             object.put("sortby", "asc");
             object.put("token", CustomPerference.getString(SubCategory.this,CustomPerference.USER_TOKEN));
             object.put("unit", "K");
@@ -180,10 +217,10 @@ public class SubCategory extends AppCompatActivity {
                     JSONArray jsonArray = response.getJSONArray("data");
                     if(jsonArray.isNull(0))
                     {
-                        Toast.makeText(getApplicationContext(),"Nodata",Toast.LENGTH_LONG).show();
-                        finish();
+                        txtNoRec.setVisibility(View.VISIBLE);
                     }
                     else {
+                        txtNoRec.setVisibility(View.GONE);
                         SubCatFilterAdapter adapter = new SubCatFilterAdapter(jsonArray);
                         rvFilterCat.setAdapter(adapter);
                         System.out.println("res..." + response);
@@ -250,6 +287,141 @@ public class SubCategory extends AppCompatActivity {
             }
         }
     }
+
+
+
+
+
+
+
+    /*GPSLOCATION SERVICES ENABLE*/
+
+
+
+    private boolean checkPermissions(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_ID) {
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                // Granted. Start getting the location information
+            }
+        }
+    }
+    private void requestPermissions(){
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                PERMISSION_ID
+        );
+    }
+    private boolean isLocationEnabled(){
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+                LocationManager.NETWORK_PROVIDER
+        );
+    }
+    @SuppressLint("MissingPermission")
+    private void getLastLocation(){
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+                mFusedLocationClient.getLastLocation().addOnCompleteListener(
+                        task -> {
+                            Location location = task.getResult();
+                            if (location == null) {
+                                requestNewLocationData();
+                            } else {
+                                System.out.println("Lat"+location.getLatitude());
+                                System.out.println("Lang"+location.getLongitude());
+
+                                latitude = location.getLatitude();
+                                longitude = location.getLongitude();
+                                getCompleteAddress();
+                                if(Utils.isNetworkAvailable(this))
+                                    getExecuteHorizontal();
+//                                    latTextView.setText(location.getLatitude()+"");
+//                                    lonTextView.setText(location.getLongitude()+"");
+                            }
+                        }
+                );
+            } else {
+                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        } else {
+            requestPermissions();
+        }
+    }
+    @SuppressLint("MissingPermission")
+    private void requestNewLocationData(){
+
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(0);
+        mLocationRequest.setFastestInterval(0);
+        mLocationRequest.setNumUpdates(1);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient.requestLocationUpdates(
+                mLocationRequest, mLocationCallback,
+                Looper.myLooper()
+        );
+
+    }
+    private LocationCallback mLocationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            Location mLastLocation = locationResult.getLastLocation();
+
+            System.out.println("Lat"+mLastLocation.getLatitude());
+            System.out.println("Lang"+mLastLocation.getLongitude());
+
+            latitude = mLastLocation.getLatitude();
+            longitude = mLastLocation.getLongitude();
+
+//            latTextView.setText(mLastLocation.getLatitude()+"");
+//            lonTextView.setText(mLastLocation.getLongitude()+"");
+        }
+    };
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (checkPermissions()) {
+            getLastLocation();
+        }
+
+    }
+    void getCompleteAddress()
+    {
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
 
 }

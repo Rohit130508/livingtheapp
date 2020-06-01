@@ -47,16 +47,12 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/imgBackblur"
         android:layout_below="@+id/linHeader"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:scaleType="fitXY"
         android:src="@drawable/nightlifesubcat"/>
-    <TextView
-        android:layout_below="@+id/linHeader"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#80000000"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/linHeader"
@@ -65,6 +61,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/rvCatTypes" />
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/txtNoRec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Record Found"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="21sp"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFilterCat"

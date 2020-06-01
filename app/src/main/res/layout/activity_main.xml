@@ -96,6 +96,7 @@
             android:id="@+id/linCat"
             android:layout_below="@+id/rlImage"
 
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.20">
@@ -185,27 +186,30 @@
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/rlSlider"
+        <ImageView
             android:layout_below="@+id/linOffer"
+            android:id="@+id/linOffer"
+            android:src="@drawable/offer"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            />
+
+        <RelativeLayout
+
+            android:id="@+id/rlSlider"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight=".80"
             android:layout_marginTop="7dp">
 
 
-            <ImageView
-                android:id="@+id/linOffer"
-                android:src="@drawable/offer"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:scaleType="fitXY"
-                />
+
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_slider"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="wrap_content" />
 
             <me.relex.circleindicator.CircleIndicator
 
@@ -256,7 +260,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_send" />
+                android:src="@drawable/ic_send_white" />
         </LinearLayout>
 
         <LinearLayout
