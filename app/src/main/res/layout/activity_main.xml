@@ -61,6 +61,7 @@
 
     <LinearLayout
         android:layout_below="@+id/linTop"
+        android:layout_above="@+id/linearBottomIcon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
@@ -70,12 +71,12 @@
             android:id="@+id/rlImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".80">
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:scaleType="centerCrop"
+                android:layout_height="match_parent"
+                android:scaleType="center"
                 android:src="@drawable/finedining"/>
 
             <TextView
@@ -89,6 +90,7 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:textSize="15sp"/>
+
         </RelativeLayout>
 
         <LinearLayout
@@ -191,7 +193,7 @@
             android:id="@+id/linOffer"
             android:src="@drawable/offer"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:scaleType="fitXY"
             />
 
@@ -213,6 +215,7 @@
 
             <me.relex.circleindicator.CircleIndicator
 
+                android:visibility="gone"
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
@@ -223,17 +226,13 @@
 
     </LinearLayout>
 
-
-
-
-
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/linearBottomIcon"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="3dp"
         android:gravity="center">
 
