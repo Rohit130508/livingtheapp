@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="10dp"
-    app:cardMaxElevation="10dp"
-    app:cardUseCompatPadding="true"
     app:cardCornerRadius="7dp"
+    android:layout_margin="7dp"
+    app:cardElevation="7dp"
     app:cardBackgroundColor="@color/white">
 
     <LinearLayout
@@ -17,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imgVen"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/logo"/>
 
         <LinearLayout
@@ -32,6 +33,7 @@
                 android:id="@+id/txtVendName"
                 android:fontFamily="@font/montserrat_bold"
                 android:textSize="15sp"
+                android:singleLine="true"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -39,7 +41,9 @@
             <TextView
                 android:id="@+id/txtLocation"
                 android:fontFamily="@font/montserrat"
-                android:textSize="12sp"
+                android:textSize="11sp"
+
+                android:singleLine="true"
                 android:layout_marginTop="1dp"
                 android:drawableStart="@drawable/ic_location"
                 android:drawablePadding="5dp"
@@ -50,7 +54,8 @@
             <TextView
                 android:id="@+id/txtArea"
                 android:fontFamily="@font/montserrat_bold"
-                android:textSize="11sp"
+                android:textSize="9sp"
+                android:singleLine="true"
                 android:layout_marginTop="7dp"
                 android:layout_marginStart="7dp"
                 android:textColor="@color/textcolor"
@@ -74,7 +79,7 @@
             android:id="@+id/txtDistance"
             android:layout_marginTop="13dp"
             android:fontFamily="@font/montserrat"
-            android:textSize="13sp"
+            android:textSize="11sp"
             android:drawablePadding="7dp"
             android:drawableStart="@drawable/ic_send"
             android:textColor="@color/black"

@@ -5,19 +5,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:layout_margin="7dp">
+    android:layout_margin="11dp">
 
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/subcatback" />
 
     <TextView
         android:id="@+id/txtSubCatName"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:text="text"
+        android:textSize="11sp"
         android:padding="7dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"

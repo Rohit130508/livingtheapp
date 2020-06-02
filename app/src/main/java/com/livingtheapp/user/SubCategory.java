@@ -156,7 +156,7 @@ public class SubCategory extends AppCompatActivity {
                 holder.txtSubCatName.setText(object.getString("name"));
                 String id = object.getString("id");
 
-                getFilterSubCat(object2.getString("id"));
+//                getFilterSubCat(object2.getString("id"));
                 holder.txtSubCatName.setOnClickListener(v -> getFilterSubCat(id));
 
             } catch (JSONException e) {
