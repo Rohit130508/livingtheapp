@@ -37,6 +37,7 @@ import com.livingtheapp.user.auth.RegistrationActivity;
 import com.livingtheapp.user.utils.AppUrl;
 import com.livingtheapp.user.utils.CustomPerference;
 import com.livingtheapp.user.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -425,6 +426,7 @@ public class MainActivity extends AppCompatActivity {
                 String id = object.getString("id");
                 String name = object.getString("name");
                 Utils.Picasso(object.getString("imagefile"),holder.imgBeau);
+//                holder.imgBeau.setImageResource(R.drawable.ic_logo);
                 holder.imgBeau.setOnClickListener(v -> {
                     startActivity(new Intent(MainActivity.this,SubCategory.class)
                     .putExtra("id",id)
