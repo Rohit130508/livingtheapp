@@ -17,8 +17,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.livingtheapp.adapter.MainCatAdapter;
+import com.livingtheapp.modal.MainCatModal;
 import com.livingtheapp.user.auth.ModalCountries;
 import com.livingtheapp.user.utils.AppUrl;
+import com.livingtheapp.user.utils.AutoFitGridLayoutManager;
 import com.livingtheapp.user.utils.CustomPerference;
 import com.livingtheapp.user.utils.Utils;
 
@@ -40,7 +43,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import me.relex.circleindicator.CircleIndicator;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainCatAdapter.ItemListener{
 
     ArrayList<ModalCountries> arrayList;
 
@@ -109,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
     void initView()
     {
         rvMainCat = findViewById(R.id.rvMainCat);
-        rvMainCat.setLayoutManager(new GridLayoutManager(this,3));
+//        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 190);
+        GridLayoutManager manager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        rvMainCat.setLayoutManager(manager);
 
         txtImgMsg = findViewById(R.id.txtImgMsg);
         txtImgMsg.setText("Marhaba "+ CustomPerference.getString(this,CustomPerference.USER_NAME)+"\n " +
@@ -136,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
         return list;
     }
+
 
     public static class ImageModel {
 
@@ -261,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
 
     void getMainCategories()
     {
+        ArrayList<MainCatModal> listCatModal = new ArrayList<>();
         JSONObject object = new JSONObject();
         try {
             object.put("token",CustomPerference.getString(this,CustomPerference.USER_TOKEN));
@@ -275,7 +282,23 @@ public class MainActivity extends AppCompatActivity {
                         if(response.getString("status").equalsIgnoreCase("1"))
                         {
                             JSONArray jsonArray = response.getJSONArray("data");
-                            MainCatAdapter adapter = new MainCatAdapter(jsonArray);
+                            for(int i=0; i<jsonArray.length(); i++)
+                            {
+                                JSONObject object1 = jsonArray.getJSONObject(i);
+
+                                String id = object1.getString("id");
+                                String name = object1.getString("name");
+                                String imagefile = object1.getString("imagefile");
+
+
+                                MainCatModal modal = new MainCatModal();
+                                modal.setId(id);
+                                modal.setName(name);
+                                modal.setImagefile(imagefile);
+                                listCatModal.add(modal);
+                            }
+
+                            MainCatAdapter adapter = new MainCatAdapter(MainActivity.this, listCatModal, this);
                             rvMainCat.setAdapter(adapter);
                         }
                     } catch (JSONException e) {
@@ -291,6 +314,15 @@ public class MainActivity extends AppCompatActivity {
         request.setRetryPolicy(new DefaultRetryPolicy(10*2000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(request);
     }
+
+    @Override
+    public void onItemClick(MainCatModal item) {
+        startActivity(new Intent(MainActivity.this, SubCategory.class)
+                .putExtra("id",item.getId())
+                .putExtra("name",item.getName()));
+    }
+
+
 
 
     void listCountries()
@@ -394,49 +426,4 @@ public class MainActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-    class MainCatAdapter extends RecyclerView.Adapter<MainCatAdapter.ViewHolder>
-    {
-        JSONArray jsonArray;
-
-        public MainCatAdapter(JSONArray jsonArray) {
-            this.jsonArray = jsonArray;
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_cat , parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-            try {
-                JSONObject object = (JSONObject) jsonArray.get(position);
-                String id = object.getString("id");
-                String name = object.getString("name");
-                Utils.Picasso(object.getString("imagefile"),holder.imgBeau);
-//                holder.imgBeau.setImageResource(R.drawable.ic_logo);
-                holder.imgBeau.setOnClickListener(v -> {
-                    startActivity(new Intent(MainActivity.this,SubCategory.class)
-                    .putExtra("id",id)
-                    .putExtra("name",name));
-                });
-            }catch (Exception e){}
-        }
-
-        @Override
-        public int getItemCount() {
-            return jsonArray.length();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView imgBeau;
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                imgBeau = itemView.findViewById(R.id.imgBeau);
-            }
-        }
-    }
 }

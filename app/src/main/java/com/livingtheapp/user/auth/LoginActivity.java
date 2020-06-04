@@ -148,16 +148,18 @@ public class LoginActivity extends AppCompatActivity {
         window.setBackgroundDrawableResource(android.R.color.transparent);
         window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        TextView txtCancel = dialog_auth.findViewById(R.id.txtCancel);
         TextView txtOk = dialog_auth.findViewById(R.id.txtOk);
         EditText inputEmail = dialog_auth.findViewById(R.id.inputEmail);
 
+
+        txtCancel.setOnClickListener(v -> dialog_auth.dismiss());
 
         txtOk.setOnClickListener(v -> {
             String mailId = inputEmail.getText().toString().trim();
             System.out.println("maid"+mailId);
 
             if(!TextUtils.isEmpty(mailId)){
-
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -179,10 +181,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }, error -> {
-
-
-                });
+        }, error -> { });
 
         RequestQueue queue = Volley.newRequestQueue(this);
         request.setRetryPolicy(new DefaultRetryPolicy(10 * 2000, 2,
