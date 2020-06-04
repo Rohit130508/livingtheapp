@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SubCategory"></activity>
+        <activity android:name=".CategoryDescription"></activity>
+        <activity android:name=".SubCategory" />
         <activity android:name=".auth.RegistrationActivity" />
         <activity android:name=".viewpagerslider.VPSlider" />
         <activity android:name=".MainActivity" />

@@ -40,8 +40,6 @@ public class MainCatAdapter extends RecyclerView.Adapter<MainCatAdapter.ViewHold
     public void onBindViewHolder(@NonNull MainCatAdapter.ViewHolder holder, int position) {
 
        holder.setData(arrayList.get(position));
-
-
     }
 
     @Override

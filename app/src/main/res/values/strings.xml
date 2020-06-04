@@ -6,4 +6,9 @@
     <string name="loginmess">All feilds are mandatory please insert correct mobile number and password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tab_text_1">Offers</string>
+    <string name="tab_text_2">Details</string>
+
+
 </resources>

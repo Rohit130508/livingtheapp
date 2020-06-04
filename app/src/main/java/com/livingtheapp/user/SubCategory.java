@@ -2,6 +2,7 @@ package com.livingtheapp.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,6 +62,7 @@ public class SubCategory extends AppCompatActivity {
     private double latitude;
     private double longitude;
     int PERMISSION_ID = 44;
+    String blankId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,8 @@ public class SubCategory extends AppCompatActivity {
 
 
         initView();
+
+
 
     }
 
@@ -119,11 +123,11 @@ public class SubCategory extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }, error -> {
+                    }, error -> { });
 
-                    });
             RequestQueue queue = Volley.newRequestQueue(SubCategory.this);
-            request.setRetryPolicy(new DefaultRetryPolicy(10 * 2000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            request.setRetryPolicy(new DefaultRetryPolicy(10 * 2000, 2,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             queue.add(request);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -263,6 +267,16 @@ public class SubCategory extends AppCompatActivity {
                 holder.txtArea.setText(object.getString("cuisinesStr"));
                 float dis = object.getLong("distance");
                 holder.txtDistance.setText(String.valueOf(dis));
+                holder.cardView.setOnClickListener(v ->
+                {
+                    try {
+                        startActivity(new Intent(SubCategory.this,CategoryDescription.class)
+                        .putExtra("name",object.getString("vendorname")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
+
                 Utils.Picasso(object.getString("logofile"),holder.imgVen);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -277,8 +291,12 @@ public class SubCategory extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView txtVendName,txtLocation,txtArea,txtDistance;
             ImageView imgVen;
+            CardView cardView;
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
+                cardView = itemView.findViewById(R.id.CardView);
+
+
                 txtVendName = itemView.findViewById(R.id.txtVendName);
                 txtLocation = itemView.findViewById(R.id.txtLocation);
                 txtArea = itemView.findViewById(R.id.txtArea);
@@ -345,6 +363,7 @@ public class SubCategory extends AppCompatActivity {
                                 getCompleteAddress();
                                 if(Utils.isNetworkAvailable(this))
                                     getExecuteHorizontal();
+                                    getFilterSubCat(blankId);
 //                                    latTextView.setText(location.getLatitude()+"");
 //                                    lonTextView.setText(location.getLongitude()+"");
                             }
