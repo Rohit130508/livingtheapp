@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="17dp"
+        android:gravity="center_vertical">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logo"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="7dp"
+        android:gravity="center_vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30% on classic creepe"
+        android:textColor="@color/textcolor"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="19sp"
+        android:layout_marginStart="9dp"/>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get a discount"
+        android:textColor="@color/textcolor"
+        android:fontFamily="@font/montserrat"
+        android:textSize="15sp"
+        android:layout_marginStart="9dp"/>
+
+
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginTop="9dp"/>
+</LinearLayout>
