@@ -5,6 +5,7 @@
 <!--    <color name="colorPrimaryDark">#04402A</color>-->
     <color name="colorAccent">#FF000000</color>
     <color name="Yellow">#80FFC107</color>
+    <color name="orange">#FF9800</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="textcolor">#C7000000</color>

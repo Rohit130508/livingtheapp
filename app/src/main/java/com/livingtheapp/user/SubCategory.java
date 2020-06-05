@@ -159,9 +159,10 @@ public class SubCategory extends AppCompatActivity {
                 String defId = object.getString("id");
                 holder.txtSubCatName.setText(object.getString("name"));
                 String id = object.getString("id");
+                String catid = getIntent().getStringExtra("catid");
 
 //                getFilterSubCat(object2.getString("id"));
-                holder.txtSubCatName.setOnClickListener(v -> getFilterSubCat(id));
+                holder.txtSubCatName.setOnClickListener(v -> getFilterSubCat(id,catid));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -182,7 +183,7 @@ public class SubCategory extends AppCompatActivity {
         }
     }
 
-    void getFilterSubCat(String id)
+    void getFilterSubCat(String id, String catid)
     {
 
         JSONArray arrayAmenities = new JSONArray();
@@ -199,6 +200,7 @@ public class SubCategory extends AppCompatActivity {
             object.put("cuisinesFilter", arrayCuisinesFilter);
             object.put("filterValue", "");
             object.put("filtersWith", arrayFilterWith);
+            object.put("catid", catid);
             object.put("id", id);
             object.put("lat1", latitude);
             object.put("lon1", longitude);
@@ -266,7 +268,7 @@ public class SubCategory extends AppCompatActivity {
                 holder.txtLocation.setText(object.getString("location"));
                 holder.txtArea.setText(object.getString("cuisinesStr"));
                 float dis = object.getLong("distance");
-                holder.txtDistance.setText(String.valueOf(dis));
+                holder.txtDistance.setText(String.valueOf(dis)+" K.M");
                 holder.cardView.setOnClickListener(v ->
                 {
                     try {
@@ -363,7 +365,7 @@ public class SubCategory extends AppCompatActivity {
                                 getCompleteAddress();
                                 if(Utils.isNetworkAvailable(this))
                                     getExecuteHorizontal();
-                                    getFilterSubCat(blankId);
+                                    getFilterSubCat(blankId,getIntent().getStringExtra("catid"));
 //                                    latTextView.setText(location.getLatitude()+"");
 //                                    lonTextView.setText(location.getLongitude()+"");
                             }

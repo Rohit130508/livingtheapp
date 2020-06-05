@@ -54,7 +54,7 @@
 
             <TextView
                 android:id="@+id/txtArea"
-                android:fontFamily="@font/montserrat_bold"
+                android:fontFamily="@font/montserrat"
                 android:textSize="9sp"
                 android:singleLine="true"
                 android:layout_marginTop="7dp"
@@ -68,22 +68,24 @@
     <LinearLayout
         android:layout_marginStart="7dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageView
+            android:layout_gravity="end"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/fav"/>
 
         <TextView
+            android:layout_gravity="bottom"
             android:id="@+id/txtDistance"
             android:layout_marginTop="13dp"
             android:fontFamily="@font/montserrat"
             android:textSize="11sp"
             android:drawablePadding="7dp"
             android:drawableStart="@drawable/ic_send"
-            android:textColor="@color/black"
+            android:textColor="@color/orange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

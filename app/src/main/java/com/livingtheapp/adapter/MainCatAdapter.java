@@ -55,6 +55,7 @@ public class MainCatAdapter extends RecyclerView.Adapter<MainCatAdapter.ViewHold
             super(itemView);
             imgBeau = itemView.findViewById(R.id.imgBeau);
             imgBeau.setOnClickListener(v ->   context.startActivity(new Intent(context, SubCategory.class)
+                    .putExtra("catid",item.getId())
                     .putExtra("id",item.getId())
                     .putExtra("name",item.getName())));
 
