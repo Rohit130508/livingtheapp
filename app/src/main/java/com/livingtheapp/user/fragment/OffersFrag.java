@@ -12,7 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.livingtheapp.user.R;
+import com.livingtheapp.user.utils.AppUrl;
+import com.livingtheapp.user.utils.CustomPerference;
+import com.livingtheapp.user.utils.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +35,8 @@ public class OffersFrag  extends Fragment {
 
 
     RecyclerView rvList;
+    private String locid, vendorId;
+
     public OffersFrag() {
         // Required empty public constructor
     }
@@ -47,18 +60,29 @@ public class OffersFrag  extends Fragment {
         View root = inflater.inflate(R.layout.fragment_offers, container, false);
         rvList = root.findViewById(R.id.rvList);
         rvList.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL,false));
-        OfferAdapter adapter = new OfferAdapter();
-        rvList.setAdapter(adapter);
+
+        locid = getArguments().getString("locId");
+        vendorId = getArguments().getString("vid");
+
+        if(Utils.isNetworkAvailable(getActivity()))
+            getVendorOffers();
         return root;
     }
     class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder>
     {
+
+        JSONArray jsonArray1;
+        public OfferAdapter(JSONArray jsonArray1) {
+            this.jsonArray1 = jsonArray1;
+        }
 
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_offer,
                     parent, false);
+
+
             return new ViewHolder(view);
         }
 
@@ -69,7 +93,7 @@ public class OffersFrag  extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 3;
+            return jsonArray1.length();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -78,4 +102,50 @@ public class OffersFrag  extends Fragment {
             }
         }
     }
+
+    void getVendorOffers()
+    {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("locationid", locid);
+            object.put("vendorid", vendorId);
+            object.put("token", CustomPerference.getString(getActivity(),CustomPerference.USER_TOKEN));
+        }catch
+        (Exception e){}
+
+        System.out.println("res..."+object);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, AppUrl.getVendorOffers,
+                object,
+                response -> {
+
+                    System.out.println("res..."+response);
+                    try {
+                        if (response.getString("status").equalsIgnoreCase("1")) {
+
+                            JSONObject jsonObject = response.getJSONObject("data");
+                            JSONArray jsonArray1 = jsonObject.getJSONArray("offersList");
+
+                            if(jsonArray1.isNull(0))
+                                return;
+
+                            else {
+
+                                OfferAdapter adapter = new OfferAdapter(jsonArray1);
+                                rvList.setAdapter(adapter);
+                            }
+                        }
+                    }catch (Exception e){}
+
+                }, error -> {
+
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        request.setRetryPolicy(new DefaultRetryPolicy( 10*2000, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(request);
+    }
+
+
+
 }

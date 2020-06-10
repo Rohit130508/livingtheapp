@@ -3,139 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.OffersFrag"
-    >
-
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollIndicators="none">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:src="@drawable/a"
-            android:scaleType="centerCrop"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            android:background="@color/Yellow"
-            android:layout_gravity="center_vertical">
-
-
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/montserrat"
-                android:textSize="19sp"
-                android:gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Call"
-                android:textColor="@color/black"
-                android:drawableStart="@drawable/ic_phone"
-                android:drawablePadding="9dp"
-                android:fontFamily="@font/montserrat"
-                android:textSize="19sp"
-                android:gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Location"
-                android:layout_marginEnd="19dp"
-                android:layout_marginStart="37dp"
-                android:drawableStart="@drawable/ic_location"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat"
-                android:textSize="19sp"
-                android:gravity="center_vertical"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    tools:context=".fragment.OffersFrag">
 
 
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:forceHasOverlappingRendering="true"
-            android:src="@drawable/logo"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="-70dp"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Amenities"
-                android:padding="19dp"
-                android:textSize="15sp"
-                android:fontFamily="@font/montserrat"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_marginEnd="19dp"
-                android:layout_height="wrap_content"
-                android:text="Other Location"
-                android:paddingTop="3dp"
-                android:paddingStart="19dp"
-                android:textSize="15sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:fontFamily="@font/montserrat"/>
-
-        </TableRow>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Offer Contain in product"
-            android:paddingStart="19dp"
-            android:textSize="15sp"
-            android:fontFamily="@font/montserrat"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="2020"
-            android:textColor="@color/black"
-            android:paddingStart="19dp"
-            android:textSize="15sp"
-            android:fontFamily="@font/montserrat"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC"
-            android:layout_marginTop="13dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"
             tools:listitem="@layout/item_offer"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+
 
 </FrameLayout>

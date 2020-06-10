@@ -216,7 +216,7 @@ public class SubCategory extends AppCompatActivity {
                 object,
                 response -> {
 
-
+                    System.out.println("res..."+response);
             try {
                 if (response.getString("status").equalsIgnoreCase("1")) {
 
@@ -245,7 +245,6 @@ public class SubCategory extends AppCompatActivity {
 
     class SubCatFilterAdapter extends RecyclerView.Adapter<SubCatFilterAdapter.ViewHolder>
     {
-
         JSONArray jsonArray;
         public SubCatFilterAdapter(JSONArray jsonArray) {
             this.jsonArray = jsonArray;
@@ -273,7 +272,9 @@ public class SubCategory extends AppCompatActivity {
                 {
                     try {
                         startActivity(new Intent(SubCategory.this,CategoryDescription.class)
-                        .putExtra("name",object.getString("vendorname")));
+                        .putExtra("name",object.getString("vendorname"))
+                        .putExtra("locId",object.getString("locationid"))
+                        .putExtra("vid",object.getString("vendorid")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
